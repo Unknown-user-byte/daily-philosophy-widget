@@ -6,12 +6,11 @@
 *{box-sizing:border-box}body{margin:0;padding:12px;background:transparent;color:var(--ink);font-family:system-ui,-apple-system,"Malgun Gothic",sans-serif}
 .card{max-width:780px;margin:auto;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
 .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px}.kicker{font-size:11px;letter-spacing:.12em;color:var(--muted)}h1{font-size:18px;margin:3px 0 0;font-weight:650}.count{font-size:11px;color:var(--muted)}
-.quote{font-size:16px;line-height:1.9;white-space:pre-line;margin:0 0 18px}.author{font-weight:700;font-size:14px}
+.quote{font-size:15px;line-height:1.85;letter-spacing:-.025em;white-space:pre-line;word-break:keep-all;overflow-wrap:anywhere;margin:0 0 18px}.author{font-weight:700;font-size:14px}
 details{border-top:1px solid var(--line);margin-top:15px;padding-top:12px}summary{cursor:pointer;font-size:12px;font-weight:650;color:#555}.meta{font-size:12px;line-height:1.8;color:#555;margin-top:10px;overflow-wrap:anywhere}.meta b{color:#333}.meta a{color:inherit}
 .controls{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 12px;font-size:12px;cursor:pointer;color:#333}
 </style></head><body>
 <main class="card">
-<div class="top"><div class="count" id="count"></div></div>
 <section id="content" aria-live="polite"></section>
 <div class="controls"><button id="today">오늘</button><button id="prev">이전</button><button id="next">다음</button></div>
 </main>
@@ -21,7 +20,7 @@ const active=entries.map((e,i)=>e.status==="verified"?i:-1).filter(i=>i>=0);
 function dayNumber(){const now=new Date();const start=new Date(now.getFullYear(),now.getMonth(),now.getDate());return Math.floor(start.getTime()/86400000)}
 let day=dayNumber();let index=((day%active.length)+active.length)%active.length;
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function render(){const e=entries[active[index]];document.getElementById('count').textContent=`${index+1} / ${active.length}`;
+function render(){const e=entries[active[index]];
 document.getElementById('content').innerHTML=`<p class="quote">${esc(e.translation)}</p><div class="author">${esc(e.author)}</div><details><summary>원문 및 출처 확인</summary><div class="meta"><div><b>작품:</b> ${esc(e.work)}</div><div><b>원문:</b><br>${esc(e.original)}</div><div><b>출처:</b> <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.source)}</a></div></div></details>`;}
 function move(d){index=(index+d+active.length)%active.length;render();}
 document.getElementById('prev').onclick=()=>move(-1);document.getElementById('next').onclick=()=>move(1);
