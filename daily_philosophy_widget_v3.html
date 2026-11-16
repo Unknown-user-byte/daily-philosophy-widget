@@ -9,9 +9,10 @@
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:transparent;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR","Malgun Gothic",sans-serif}
 .widget{width:100%;max-width:100%;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 17px 13px;}
-.quote{font-size:15px;line-height:1.85;letter-spacing:-.25px;white-space:pre-line;overflow-wrap:break-word;word-break:keep-all;min-height:100px}
+.quote{font-size:15px;line-height:1.85;letter-spacing:-.25px;white-space:pre-line;overflow-wrap:break-word;word-break:keep-all;min-height:0}
 .meta{margin-top:13px;padding-top:10px;border-top:1px solid var(--line);font-size:12px;line-height:1.6;color:var(--muted)}
-.author{font-weight:700;color:#444;font-size:13px;margin-bottom:2px}
+.original{margin-top:2px;color:#929292;font-size:12px;font-style:italic;line-height:1.65;word-break:break-word}
+.author{font-weight:700;color:#444;font-size:15px;margin-top:13px;margin-bottom:8px}
 .work{color:#666}
 .source{margin-top:5px}
 .source a{color:#777;text-decoration:underline;text-underline-offset:2px}
@@ -28,8 +29,9 @@ button.primary{background:#333;color:#fff;border-color:#333}
 <body>
 <div class="widget">
   <div id="quote" class="quote" aria-live="polite"></div>
-  <div id="original" class="original"></div>\n  <div class="meta">
-    <div id="author" class="author"></div>
+  <div id="original" class="original"></div>
+  <div id="author" class="author"></div>
+  <div class="meta">
     <div id="work" class="work"></div>
     <div id="ref"></div>
     <div id="source" class="source"></div>
@@ -49,7 +51,8 @@ let current = 0;
 function render() {
  const e = entries[current];
  document.getElementById('quote').textContent = e.display;
- document.getElementById('original').textContent = '원문·대조 문구: ' + e.original;\n document.getElementById('author').textContent = e.author;
+ document.getElementById('original').textContent = e.original;
+ document.getElementById('author').textContent = e.author;
  document.getElementById('work').textContent = e.work;
  document.getElementById('ref').textContent = e.ref;
  const a = document.createElement('a'); a.href=e.url; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent='원문 및 출처 확인';
